@@ -55,17 +55,20 @@ VOID send_to_py_server(DWORD msgAdd)
 	DWORD messageAdd = msgAdd - 0x190;  //消息内容
 	wchar_t buff[0x1000] = { 0 };
 	wchar_t type[0x100] = L"1";  //消息类型，1代表发送给python server的是文本消息，用于python server对数据的解析
-	//CHAR pid_str[0x100] = { 0 };
-	//DWORD PID = GetCurrentProcessId();
-	//// 把DWORD(即int)类型转成wchat_t类型
-	//_itoa_s(PID, pid_str, 10);
+	////获取微信进程pid
+	CHAR pid_str[0x100] = { 0 };
+	DWORD PID = GetCurrentProcessId();  //获取微信进程pid
+	// 把DWORD(即int)类型转成wchat_t类型
+	_itoa_s(PID, pid_str, 10);
 	wchar_t processPid[0x100] = { 0 };
-	get_process_pid(processPid); //获取微信进程pid
-	//swprintf(processPid, sizeof(processPid), L"%hs", pid_str);
+	//get_process_pid(processPid); //获取微信进程pid， GetCurrentProcessId不能在其他文件调用
+	swprintf(processPid, sizeof(processPid), L"%hs", pid_str);
 
 	//MessageBox(NULL, (LPCWSTR)processPid, L"ProcessId", 0);
 	if (*(LPVOID *)wxid2Add <= 0x0) {
 		//获取个人消息
+	/*	swprintf_s(buff, L"{\"type\":%s,\"chatroom_ID\":\"%s\",\"wx_ID\":\"%s\",\"content\":\"%s\"}",
+			type, L"", *((LPVOID *)wxidAdd), *((LPVOID *)messageAdd));*/
 		swprintf_s(buff, L"{\"pid\":%s,\"type\":%s,\"chatroom_ID\":\"%s\",\"wx_ID\":\"%s\",\"content\":\"%s\"}",
 			processPid, type, L"", *((LPVOID *)wxidAdd), *((LPVOID *)messageAdd));
 	}
@@ -146,8 +149,9 @@ VOID __declspec(naked) HookF()
 	}
 }
 
-VOID StartHookWeChat(HWND hwndDlg, DWORD hookAdd)
+VOID StartHookWeChat(HWND hwndDlg)
 {
+	DWORD hookAdd = getWechatWin() + 0x355613;
 	hWHND = OpenProcess(PROCESS_ALL_ACCESS, NULL, GetCurrentProcessId());
 	WinAdd = getWechatWin();
 	hDlg = hwndDlg;

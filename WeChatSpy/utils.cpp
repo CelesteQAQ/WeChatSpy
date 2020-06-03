@@ -10,15 +10,15 @@ DWORD getWechatWin()
 	return (DWORD)LoadLibrary(L"WeChatWin.dll");
 }
 
-//获取微信进程pid
-VOID get_process_pid(wchar_t * processPid)
-{
-	CHAR pid_str[0x100] = { 0 };
-	DWORD PID = GetCurrentProcessId();
-	// 把DWORD(即int)类型转成wchat_t类型
-	_itoa_s(PID, pid_str, 10);
-	swprintf(processPid, sizeof(processPid), L"%hs", pid_str);
-}
+////获取微信进程pid
+//VOID get_process_pid(wchar_t * processPid)
+//{
+//	CHAR pid_str[0x100] = { 0 };
+//	DWORD PID = GetCurrentProcessId();
+//	// 把DWORD(即int)类型转成wchat_t类型
+//	_itoa_s(PID, pid_str, 10);
+//	swprintf(processPid, sizeof(processPid), L"%hs", pid_str);
+//}
 //将wchat_t类型数组转成CHAR类型数组
 char* UnicodeToChar(const wchar_t* unicode)
 {

@@ -8,6 +8,7 @@
 #include <WINSOCK2.H>
 #include "socketTool.h"
 #include <ctime> 
+#include <stdlib.h>
 
 SOCKET Global_Client = 0;  //全局变量Global_Client的定义，其已在socketTool.h中声明
 
@@ -32,10 +33,10 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 		{
 			Global_Client = Connect_to_Server(); //启动连接服务器
 			if (Global_Client == 0)
-				MessageBox(NULL, L"连接Python server失败", L"Connect server error", 0);
+				MessageBox(NULL, L"首次连接Python server失败", L"Connect server error", 0);
 		}
 		CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ShowUI, hModule, NULL, 0);
-		//CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)hold_the_socket, NULL, NULL, 0);
+		CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)hold_the_socket, NULL, NULL, 0);
 		//CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)Listen_to_Server, (LPVOID)client, NULL, 0);
 		break;
 	case DLL_THREAD_ATTACH:
@@ -70,12 +71,17 @@ VOID Listen_to_Server()
 //维持微信与server的socket连接
 VOID hold_the_socket()
 {
-	wchar_t processPid[0x100] = { 0 };
 	wchar_t buff[0x100] = { 0 };
 	wchar_t type[0x100] = L"200";
-	get_process_pid(processPid); //获取微信进程pid
-	swprintf_s(buff, L"{\"pid\":%s,\"type\":%s,\"content\":\"%s\"}",
-		processPid, type, L"heartbeat");
+	//获取微信进程pid
+	CHAR pid_str[0x100] = { 0 };
+	wchar_t processPid[0x100] = { 0 };
+	DWORD PID = GetCurrentProcessId();  
+	// 把DWORD(即int)类型转成wchat_t类型
+	_itoa_s(PID, pid_str, 10);
+	//get_process_pid(processPid); //获取微信进程pid， GetCurrentProcessId不能在其他文件调用
+	swprintf(processPid, sizeof(processPid), L"%hs", pid_str);
+	swprintf_s(buff, L"{\"pid\":%s,\"type\":%s}", processPid, type);
 	const char * sendData = UnicodeToChar(buff);  //将Unicode编码转成CHAR类型，用于socket传输
 	SOCKET client = 0;
 	while (true)
@@ -94,11 +100,11 @@ VOID hold_the_socket()
 			while (Global_Client == 0)
 			{
 				Global_Client = Connect_to_Server(); //启动连接服务器，连接失败返回0
-				Sleep(2 * 1000);  //延时5s
+				Sleep(1 * 1000);  //延时1s
 				//MessageBox(NULL, L"连接Python server失败", L"Connect server error", 0);
 			}
 		}
-		Sleep(5 * 1000);  //延时5s
+		Sleep(2 * 1000);  //延时2s
 	}
 }
 
@@ -117,11 +123,10 @@ INT_PTR CALLBACK DialogProc(
 	_In_ LPARAM lParam
 )
 {
-	DWORD hookAdd = getWechatWin() + 0x355613;
 	switch (uMsg)
 	{
 	case WM_INITDIALOG:
-		StartHookWeChat(hwndDlg, hookAdd);
+		StartHookWeChat(hwndDlg);
 		break;
 	case WM_CLOSE:
 		EndDialog(hwndDlg, 0);

@@ -5,7 +5,7 @@
 //获取wechatWin模块地址
 DWORD getWechatWin();
 //获取微信进程pid
-VOID get_process_pid(wchar_t * processPid);
+//VOID get_process_pid(wchar_t * processPid);
 
 //将wchat_t类型数组转成CHAR类型数组
 char* UnicodeToChar(const wchar_t* unicode);
