@@ -1,0 +1,22 @@
+﻿  pch.cpp
+  dllmain.cpp
+  RecevMessage.cpp
+e:\python\code\hook\wechatspy\wechatspy\recevmessage.cpp(40): warning C4477: “swprintf_s”: 格式字符串“%s”需要类型“wchar_t *”的参数，但可变参数 1 拥有了类型“LPVOID”
+e:\python\code\hook\wechatspy\wechatspy\recevmessage.cpp(40): warning C4477: “swprintf_s”: 格式字符串“%s”需要类型“wchar_t *”的参数，但可变参数 2 拥有了类型“LPVOID”
+e:\python\code\hook\wechatspy\wechatspy\recevmessage.cpp(44): warning C4477: “swprintf_s”: 格式字符串“%s”需要类型“wchar_t *”的参数，但可变参数 1 拥有了类型“LPVOID”
+e:\python\code\hook\wechatspy\wechatspy\recevmessage.cpp(44): warning C4477: “swprintf_s”: 格式字符串“%s”需要类型“wchar_t *”的参数，但可变参数 2 拥有了类型“LPVOID”
+e:\python\code\hook\wechatspy\wechatspy\recevmessage.cpp(44): warning C4477: “swprintf_s”: 格式字符串“%s”需要类型“wchar_t *”的参数，但可变参数 3 拥有了类型“LPVOID”
+e:\python\code\hook\wechatspy\wechatspy\recevmessage.cpp(69): warning C4477: “swprintf_s”: 格式字符串“%s”需要类型“wchar_t *”的参数，但可变参数 4 拥有了类型“LPVOID”
+e:\python\code\hook\wechatspy\wechatspy\recevmessage.cpp(69): warning C4477: “swprintf_s”: 格式字符串“%s”需要类型“wchar_t *”的参数，但可变参数 5 拥有了类型“LPVOID”
+e:\python\code\hook\wechatspy\wechatspy\recevmessage.cpp(74): warning C4477: “swprintf_s”: 格式字符串“%s”需要类型“wchar_t *”的参数，但可变参数 3 拥有了类型“LPVOID”
+e:\python\code\hook\wechatspy\wechatspy\recevmessage.cpp(74): warning C4477: “swprintf_s”: 格式字符串“%s”需要类型“wchar_t *”的参数，但可变参数 4 拥有了类型“LPVOID”
+e:\python\code\hook\wechatspy\wechatspy\recevmessage.cpp(74): warning C4477: “swprintf_s”: 格式字符串“%s”需要类型“wchar_t *”的参数，但可变参数 5 拥有了类型“LPVOID”
+e:\python\code\hook\wechatspy\wechatspy\recevmessage.cpp(169): warning C4477: “swprintf_s”: 格式字符串“%p”需要类型“void *”的参数，但可变参数 1 拥有了类型“DWORD”
+e:\python\code\hook\wechatspy\wechatspy\recevmessage.cpp(174): warning C4477: “swprintf_s”: 格式字符串“%p”需要类型“void *”的参数，但可变参数 1 拥有了类型“DWORD”
+  sendMessage.cpp
+  socketTool.cpp
+e:\python\code\hook\wechatspy\wechatspy\sockettool.cpp(20): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  d:\windows kits\10\include\10.0.14393.0\um\winsock2.h(1828): note: 参见“inet_addr”的声明
+  utils.cpp
+  正在生成代码...
+  WeChatSpy.vcxproj -> E:\Python\code\HOOK\WeChatSpy\Debug\WeChatSpy.dll
