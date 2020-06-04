@@ -9,6 +9,10 @@
 #include "socketTool.h"
 #include <ctime> 
 #include <stdlib.h>
+#include "sendMessage.h"
+#include "cJSON.h"
+#include <atlstr.h>
+using namespace std;
 
 SOCKET Global_Client = 0;  //全局变量Global_Client的定义，其已在socketTool.h中声明
 
@@ -20,6 +24,8 @@ INT_PTR CALLBACK DialogProc(
 );
 VOID ShowUI(HMODULE hModule);
 VOID hold_the_socket();
+VOID Listen_to_Server();
+
 
 BOOL APIENTRY DllMain(HMODULE hModule,
 	DWORD  ul_reason_for_call,
@@ -37,7 +43,7 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 		}
 		CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ShowUI, hModule, NULL, 0);
 		CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)hold_the_socket, NULL, NULL, 0);
-		//CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)Listen_to_Server, (LPVOID)client, NULL, 0);
+		CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)Listen_to_Server, NULL, NULL, 0);
 		break;
 	case DLL_THREAD_ATTACH:
 	case DLL_THREAD_DETACH:
@@ -51,19 +57,57 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 VOID Listen_to_Server()
 {
 	SOCKET client = 0;
+	DWORD ret = 0;
+	cJSON *json;
 	while (true) {
 		client = Global_Client;
-		if (client != 0)
+		if (client)
 		{
-			wchar_t buff[0x1000] = { 0 };
 			CHAR recData[0x2000] = { 0 };
-			DWORD ret = recv(client, recData, sizeof(recData), 0);
-			if (ret > 0) {
-				recData[ret] = 0x00;
-				CharToUnicode(recData, buff);
-				MessageBox(NULL, buff, L"Data from server", 0);
+			wchar_t wxid[0x100] = { 0 };
+			wchar_t at_wxid[0x100] = { 0 };
+			wchar_t message[0x1000] = { 0 };
+			wchar_t buff[0x1000] = { 0 };
+			ret = 0;
+			//const char * data = UnicodeToChar(buff);
+			ret = recv(client, recData, sizeof(recData), 0);
+		
+			if (strlen(recData)!=0) {
+				recData[strlen(recData)] = 0x00;
+				//MultiByteToWideChar(CP_UTF8, 0, recData, -1, buff, sizeof(buff));
+				//int length = strlen(recData);
+				//CN2Unicode(recData, buff);
+				CN2Unicode(recData, buff);
+				//wchar_t * buff = UTF8ToUnicode(recData);
+				//_itoa_s(length, pid_str, 10);
+				//get_process_pid(processPid); //获取微信进程pid， GetCurrentProcessId不能在其他文件调用
+				//swprintf(message, sizeof(message), L"%hs", pid_str);
+				//swprintf_s(text, L"%s", buff);
+				//CHAR * pid_str = UnicodeToChar(buff);
+				//swprintf(text, sizeof(message), L"%hs", pid_str);
+				//MessageBox(NULL, buff, L"Data from server buff", 0);
+				//CString  m_str(recData);
+				////MessageBox(m_str);
+				//MessageBox(NULL, m_str, L"recData", 0);
+				//MessageBox(NULL, message, L"length", 0);
+				//wchar_t buff2[0x1000] = L"{\"code\":1,\"wxid\":\"wxid_5d7paxx35o8h22\",\"at_wxid\":\"\", \"content\":\"python server\u6536\u5230\"}";
+				//MessageBox(NULL, buff2, L"Data from server buff2", 0);
+				json = cJSON_Parse(buff); //解析成json形式
+				//wchar_t * wxid = cJSON_GetObjectItem(json, L"wxid")->valuestring;  //获取键值内容
+				swprintf_s(wxid, L"%s", cJSON_GetObjectItem(json, L"wxid")->valuestring);
+				//wchar_t * at_wxid = cJSON_GetObjectItem(json, L"at_wxid")->valuestring;
+				swprintf_s(at_wxid, L"%s", cJSON_GetObjectItem(json, L"at_wxid")->valuestring);
+				//wchar_t * message = cJSON_GetObjectItem(json, L"content")->valuestring;
+				swprintf_s(message, L"%s", cJSON_GetObjectItem(json, L"content")->valuestring);
+				//swprintf_s(text, L"wx_ID:%s,at_wxid:%s, content:%s}", wxid, at_wxid, message);
+				//wchar_t * wxid = cJSON_GetObjectItem(json, L"wxid")->valuestring;  //获取键值内容
+				//wchar_t * at_wxid = cJSON_GetObjectItem(json, L"at_wxid")->valuestring;
+				//wchar_t * message = cJSON_GetObjectItem(json, L"content")->valuestring;
+				//cJSON_Delete(json);
+				//swprintf_s(text, L"wx_ID:%s,at_wxid:%s, content:%s", wxid, at_wxid, message);
+				//MessageBox(NULL, text, L"Data from server text最后一次", 0);
+				sendTextMessage(wxid, at_wxid, message);
 			}
-			//closesocket(client);
 		}
 	}
 }

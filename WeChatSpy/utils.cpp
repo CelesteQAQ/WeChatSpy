@@ -30,11 +30,40 @@ char* UnicodeToChar(const wchar_t* unicode)
 	return szCHAR;
 }
 
-//Char类型数组转wchat_t类型数组
-VOID CharToUnicode(CHAR * charList, wchar_t * wchar_t_list)
+/************************************************************************
+*int CN2Unicode(char *input,wchar_t *output)
+*功能：中文字符转换为unicode字符
+*参数：input，包含中文的字符串，output，Unicode字符串
+*
+*************************************************************************/
+int CN2Unicode(char *input, wchar_t *output)
 {
-	swprintf(wchar_t_list, sizeof(wchar_t_list), L"%hs", charList);
+	int len = strlen(input);
+
+	//wchar_t *out = (wchar_t *) malloc(len*sizeof(wchar_t));
+
+	len = MultiByteToWideChar(CP_ACP, 0, input, -1, output, MAX_PATH);
+
+	return 1;
 }
+
+//UTF8转成Unicode
+wchar_t * UTF8ToUnicode(const char* str)
+{
+	int    textlen = 0;
+	wchar_t * result;
+	textlen = MultiByteToWideChar(CP_UTF8, 0, str, -1, NULL, 0);
+	result = (wchar_t *)malloc((textlen + 1) * sizeof(wchar_t));
+	memset(result, 0, (textlen + 1) * sizeof(wchar_t));
+	MultiByteToWideChar(CP_UTF8, 0, str, -1, (LPWSTR)result, textlen);
+	return    result;
+}
+
+//Char类型数组转wchat_t类型数组
+//VOID CharToUnicode(CHAR * charList, wchar_t * wchar_t_list)
+//{
+//	swprintf(wchar_t_list, sizeof(wchar_t_list), L"%hs", charList);
+//}
 
 // 把DWORD(即int)类型变量转成wchat_t类型数组
 VOID DWORDToUnicode(DWORD value, wchar_t * wchar_t_list)

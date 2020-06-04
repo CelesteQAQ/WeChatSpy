@@ -1,4 +1,23 @@
 ﻿  pch.cpp
+  cJSON.cpp
+e:\python\code\hook\wechatspy\wechatspy\cjson.cpp(126): warning C4996: 'swprintf': function has been changed to conform with the ISO C standard, adding an extra character count parameter. To use the traditional Microsoft version, set _CRT_NON_CONFORMING_SWPRINTFS.
+  d:\windows kits\10\include\10.0.14393.0\ucrt\corecrt_wstdio.h(1822): note: 参见“swprintf”的声明
+e:\python\code\hook\wechatspy\wechatspy\cjson.cpp(133): warning C4996: 'swprintf': function has been changed to conform with the ISO C standard, adding an extra character count parameter. To use the traditional Microsoft version, set _CRT_NON_CONFORMING_SWPRINTFS.
+  d:\windows kits\10\include\10.0.14393.0\ucrt\corecrt_wstdio.h(1822): note: 参见“swprintf”的声明
+e:\python\code\hook\wechatspy\wechatspy\cjson.cpp(134): warning C4996: 'swprintf': function has been changed to conform with the ISO C standard, adding an extra character count parameter. To use the traditional Microsoft version, set _CRT_NON_CONFORMING_SWPRINTFS.
+  d:\windows kits\10\include\10.0.14393.0\ucrt\corecrt_wstdio.h(1822): note: 参见“swprintf”的声明
+e:\python\code\hook\wechatspy\wechatspy\cjson.cpp(135): warning C4996: 'swprintf': function has been changed to conform with the ISO C standard, adding an extra character count parameter. To use the traditional Microsoft version, set _CRT_NON_CONFORMING_SWPRINTFS.
+  d:\windows kits\10\include\10.0.14393.0\ucrt\corecrt_wstdio.h(1822): note: 参见“swprintf”的声明
+e:\python\code\hook\wechatspy\wechatspy\cjson.cpp(244): warning C4996: 'swprintf': function has been changed to conform with the ISO C standard, adding an extra character count parameter. To use the traditional Microsoft version, set _CRT_NON_CONFORMING_SWPRINTFS.
+  d:\windows kits\10\include\10.0.14393.0\ucrt\corecrt_wstdio.h(1822): note: 参见“swprintf”的声明
+e:\python\code\hook\wechatspy\wechatspy\cjson.cpp(363): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.14393.0\ucrt\corecrt_wstring.h(117): note: 参见“wcscpy”的声明
+e:\python\code\hook\wechatspy\wechatspy\cjson.cpp(398): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.14393.0\ucrt\corecrt_wstring.h(117): note: 参见“wcscpy”的声明
+e:\python\code\hook\wechatspy\wechatspy\cjson.cpp(497): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.14393.0\ucrt\corecrt_wstring.h(117): note: 参见“wcscpy”的声明
+e:\python\code\hook\wechatspy\wechatspy\cjson.cpp(499): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.14393.0\ucrt\corecrt_wstring.h(117): note: 参见“wcscpy”的声明
   dllmain.cpp
   RecevMessage.cpp
 e:\python\code\hook\wechatspy\wechatspy\recevmessage.cpp(40): warning C4477: “swprintf_s”: 格式字符串“%s”需要类型“wchar_t *”的参数，但可变参数 1 拥有了类型“LPVOID”
