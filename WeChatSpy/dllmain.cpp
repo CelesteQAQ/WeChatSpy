@@ -14,6 +14,7 @@
 #include <atlstr.h>
 using namespace std;
 
+
 SOCKET Global_Client = 0;  //全局变量Global_Client的定义，其已在socketTool.h中声明
 
 INT_PTR CALLBACK DialogProc(
