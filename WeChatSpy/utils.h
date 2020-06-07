@@ -10,9 +10,6 @@ DWORD getWechatWin();
 //将wchat_t类型数组转成CHAR类型数组
 char* UnicodeToChar(const wchar_t* unicode);
 
-//Char类型数组转wchat_t类型数组
-//VOID CharToUnicode(CHAR * charList, wchar_t * wchar_t_list);
-
 //UTF8转成Unicode
 wchar_t * UTF8ToUnicode(const char* str);
 
