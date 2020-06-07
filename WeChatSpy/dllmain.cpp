@@ -67,32 +67,37 @@ VOID Listen_to_Server()
 			wchar_t wxid[0x100] = { 0 };
 			wchar_t at_wxid[0x100] = { 0 };
 			wchar_t message[0x1000] = { 0 };
-			wchar_t buff[0x1000] = { 0 };
+			//wchar_t buff[0x1000] = { 0 };
 			ret = 0;
 			//const char * data = UnicodeToChar(buff);
 			ret = recv(client, recData, sizeof(recData), 0);
-		
-			if (strlen(recData)!=0) {
+			if (strlen(recData) != 0) {
 				recData[strlen(recData)] = 0x00;
+				//Document document;
+				//document.Parse(recData);
+				////printf("content = %s\n", document["content"].GetString());
+				//swprintf(message, sizeof(message), L"%hs", document["content"].GetString());
+				//MessageBox(NULL, message, L"Data from server message", 0);
+				//swprintf(buff, sizeof(buff), L"%hs", recData);
 				//MultiByteToWideChar(CP_UTF8, 0, recData, -1, buff, sizeof(buff));
 				//int length = strlen(recData);
 				//CN2Unicode(recData, buff);
-				CN2Unicode(recData, buff);
-				//wchar_t * buff = UTF8ToUnicode(recData);
+				//CN2Unicode(recData, buff);
+				wchar_t * buff2 = UTF8ToUnicode(recData);
 				//_itoa_s(length, pid_str, 10);
 				//get_process_pid(processPid); //获取微信进程pid， GetCurrentProcessId不能在其他文件调用
 				//swprintf(message, sizeof(message), L"%hs", pid_str);
 				//swprintf_s(text, L"%s", buff);
 				//CHAR * pid_str = UnicodeToChar(buff);
 				//swprintf(text, sizeof(message), L"%hs", pid_str);
-				//MessageBox(NULL, buff, L"Data from server buff", 0);
+				/*MessageBox(NULL, buff, L"Data from server buff", 0);*/
 				//CString  m_str(recData);
 				////MessageBox(m_str);
 				//MessageBox(NULL, m_str, L"recData", 0);
 				//MessageBox(NULL, message, L"length", 0);
 				//wchar_t buff2[0x1000] = L"{\"code\":1,\"wxid\":\"wxid_5d7paxx35o8h22\",\"at_wxid\":\"\", \"content\":\"python server\u6536\u5230\"}";
 				//MessageBox(NULL, buff2, L"Data from server buff2", 0);
-				json = cJSON_Parse(buff); //解析成json形式
+				json = cJSON_Parse(buff2); //解析成json形式
 				//wchar_t * wxid = cJSON_GetObjectItem(json, L"wxid")->valuestring;  //获取键值内容
 				swprintf_s(wxid, L"%s", cJSON_GetObjectItem(json, L"wxid")->valuestring);
 				//wchar_t * at_wxid = cJSON_GetObjectItem(json, L"at_wxid")->valuestring;
@@ -103,7 +108,7 @@ VOID Listen_to_Server()
 				//wchar_t * wxid = cJSON_GetObjectItem(json, L"wxid")->valuestring;  //获取键值内容
 				//wchar_t * at_wxid = cJSON_GetObjectItem(json, L"at_wxid")->valuestring;
 				//wchar_t * message = cJSON_GetObjectItem(json, L"content")->valuestring;
-				//cJSON_Delete(json);
+				cJSON_Delete(json);
 				//swprintf_s(text, L"wx_ID:%s,at_wxid:%s, content:%s", wxid, at_wxid, message);
 				//MessageBox(NULL, text, L"Data from server text最后一次", 0);
 				sendTextMessage(wxid, at_wxid, message);
